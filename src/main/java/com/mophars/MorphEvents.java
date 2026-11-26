@@ -16,7 +16,7 @@ public class MorphEvents {
     @SubscribeEvent
     public void join(EntityJoinLevelEvent e) {
         if (e.getLevel().isClientSide || !(e.getEntity() instanceof Mob m) || m instanceof MorpherEntity) return;
-        if (m instanceof Enemy || m.getAttributes().hasAttribute(Attributes.ATTACK_DAMAGE))
+        if (m instanceof Enemy)   // neutral/passive mobs behave vanilla; they only retaliate (see hurt)
             m.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(m, MorpherEntity.class, 10, false, false,
                 le -> le instanceof MorpherEntity x && x.hates(m)));
     }
